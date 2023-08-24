@@ -4,7 +4,7 @@ import { pool } from "../db.js"
 export const getTrailers = async(req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM trailers')
-        res.json(rows)
+        res.status(200).json(rows)
     } catch (error) {
         return res.status(500).json({
             message:'Something is wrong'
@@ -21,7 +21,7 @@ export const getTrailer = async(req, res) => {
             message: 'Trailer not found'
         })
 
-        res.json(rows[0])
+        res.status(200).json(rows[0])
     } catch (error) {
         return res.status(500).json({
             message:'Something is wrong'
