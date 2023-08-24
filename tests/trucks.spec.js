@@ -1,5 +1,7 @@
 import app from "../src/app.js"
 import request from "supertest"
+import { pool } from "../src/db.js"
+
 
 describe('GET /trucks', () => {
 
@@ -24,5 +26,17 @@ describe('POST /trucks', () => {
         const response = await request(app).post('/trucks').send()
         expect(response.statusCode).toBe(201);
     })
+
+    afterAll(() => {
+        pool.end((err) => {
+            if (err) {
+              console.error('Error al cerrar la conexión:', err);
+            } else {
+              console.log('Conexión cerrada correctamente');
+            }
+          });
+      });
 })
+
+
 
